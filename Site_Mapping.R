@@ -16,10 +16,10 @@ sites_csv <- na.omit(sites_csv)
 sites_sf <- st_as_sf(sites_csv, coords = c("Long", "Lat"), crs = 4326)
 
 # Transform the CRS to a projected CRS for accurate distance calculations
-sites_sf <- st_transform(sites_sf, crs = 3338) #CRS for NAD83 / Alaska Albers 
+sites_sf <- st_transform(sites_sf, crs = 4326) #CRS for NAD83 / Alaska Albers 
 
 # Create a buffer of 500 meters around each point
-buffers <- st_buffer(sites_sf, dist = 500)
+buffers <- st_buffer(sites_sf, dist = 1000)
 
 # Save each buffer as a separate shapefile
 buffers %>%
@@ -42,7 +42,7 @@ ggplot() +
   labs(title = "EvoME Sites",
        x = "Longitude",
        y = "Latitude")+
-  ggplot2::coord_sf(crs = 'EPSG:3338', ylim = c(1733539, 2340581), xlim = c(100000, 300000))
+  ggplot2::coord_sf(crs = 'EPSG:4326', ylim = c(1733539, 2340581), xlim = c(100000, 300000))
   
   
 
